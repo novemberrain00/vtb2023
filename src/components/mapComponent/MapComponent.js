@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 
-import 'dotenv/config';
-
 import { load } from '@2gis/mapgl';
 import { Directions } from '@2gis/mapgl-directions';
 import { useSelector } from 'react-redux';
