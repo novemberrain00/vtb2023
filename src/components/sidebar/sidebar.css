@@ -1,9 +1,19 @@
-.sidebar {
+.sidebar-wrapper {
+    display: flex;
     position: absolute;
     top: 0;
     left: 0;
     bottom: 0;
+    transition: .7s;
+    z-index: 2;
+}
+
+.sidebar-wrapper_hidden {
+    transform: translateX(-63%);
+}
+
+.sidebar {
+    margin-right: 10px;
     width: 300px;
     background-color: #fff;
-    z-index: 2;
 }
