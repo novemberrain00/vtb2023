@@ -1,0 +1,6 @@
+.geo-button {
+    position: absolute;
+    right: 5%;
+    bottom: 10%;
+    z-index: 1;
+}

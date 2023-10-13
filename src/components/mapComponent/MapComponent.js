@@ -1,23 +1,32 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { load } from '@2gis/mapgl';
 import { Directions } from '@2gis/mapgl-directions';
-import { useSelector } from 'react-redux';
 
 import MapWrapper from '../mapWrapper/mapWrapper';
-import RouteSwitch from '../routeSwitch/routeSwitch';
 
-const MapComponent = (props) => {
-    const [map, setMap] = useState({});
-    const [curPos, setCurPos] = useState([]);
-    const [mapglApi, setMapGLApi] = useState({});
+import './mapComponent.css';
+import { getDistanceBetweenPoints } from '../../services/services';
+
+const MapComponent = ({banks}) => {
+    const [map, setMap] = useState({}),
+        [curPos, setCurPos] = useState([]),
+        [mapglAPI, setMapGLApi] = useState({}),
+        [closestBank, setClosestBank] = useState({});
+
     const routeType = useSelector((state) => state.routes.type);
+
+    const directions = new Directions(map, {
+        directionsApiKey: 'fea7953b-72fa-4b6f-8d3e-bd5b5514a074',
+    });
 
     const success = (pos) => {
         const center = [pos.coords.longitude, pos.coords.latitude];
-        const marker = new mapglApi.Marker(map, {
+        const marker = new mapglAPI.Marker(map, {
             coordinates: [pos.coords.longitude, pos.coords.latitude],
         });
+
         setCurPos(center);
         map.setCenter(center);
 
@@ -36,24 +45,24 @@ const MapComponent = (props) => {
     }
 
     useEffect(() => {
-        const directions = new Directions(map, {
-            directionsApiKey: '9d37cb77-658c-44e1-8370-a652dbba6792',
-        });
 
         if(curPos.length === 0) return;
 
-        if(routeType === 'auto') {
+        if(!closestBank.long || !closestBank.lat) return;
+
+        directions.clear();
+        if(routeType) {
             directions.carRoute({
                 points: [
                     curPos,
-                    [37.5948, 55.786426],
+                    [closestBank.long, closestBank.lat]
                 ],
             });
-        } else if(routeType === 'pedestrian') {
+        } else {
             directions.pedestrianRoute({
                 points: [
                     curPos,
-                    [37.5948, 55.786426],    
+                    [closestBank.long, closestBank.lat]
                 ],
             });
         }
@@ -66,7 +75,7 @@ const MapComponent = (props) => {
             map = new mapglAPI.Map('map-container', {
                 center: [37.622318, 55.754989],
                 zoom: 13,
-                key: '9d37cb77-658c-44e1-8370-a652dbba6792',
+                key: 'fea7953b-72fa-4b6f-8d3e-bd5b5514a074',
             });
 
             setMap(map);
@@ -76,10 +85,27 @@ const MapComponent = (props) => {
         return () => map && map.destroy();
     }, []);
 
+    useEffect(() => {
+        const distance = 100000;
+
+        banks.forEach(bank => {
+            if(getDistanceBetweenPoints([bank.long, bank.lat], curPos) < distance) {
+                setClosestBank(bank);
+            }
+
+            if(curPos.length) return 
+
+            const marker = new mapglAPI.Marker(map, {
+                coordinates: [bank.long, bank.lat],
+            });
+
+        });
+        console.log(closestBank)
+    }, [banks, curPos]);
+
     return (
         <div style={{ width: '100%', height: '100%' }}>
-            <button onClick={()=> geoFindMe()}>Найти местоположение</button>
-            <RouteSwitch/>
+            <button className="geo-button" onClick={()=> geoFindMe()}>Найти местоположение</button>
             <MapWrapper/>
         </div>
     );

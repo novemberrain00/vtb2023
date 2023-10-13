@@ -1,8 +1,9 @@
 import React from "react";
+import './mapWrapper.css';
 
 const MapWrapper = React.memo(
     () => {
-        return <div id="map-container" style={{width: '100vw', height: '50vh'}}></div>;
+        return <div id="map-container"></div>;
     },
     () => true,
 );

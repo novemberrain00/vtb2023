@@ -7,8 +7,8 @@ const RouteSwitch = () => {
 
     return (
         <div className="route-switch"> 
-            <input type='radio' name='route-type' value='auto' onChange={() => dispatch(changeType())}/> автомобильный
-            <input type='radio' name='route-type' value='pedestrian' onChange={() => dispatch(changeType())}/> пешеходный
+            <input type='radio' name='route-type' value='auto' onClick={() => dispatch(changeType())}/> автомобильный
+            <input type='radio' name='route-type' value='pedestrian' onClick={() => dispatch(changeType())}/> пешеходный
         </div>
     );
 };

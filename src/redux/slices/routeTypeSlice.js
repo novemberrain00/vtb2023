@@ -1,15 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  type: 'pedestrian'
+  type: false  //true - for person, false - for car
 }
 
 export const routeTypeSlice = createSlice({
   name: 'routes',
   initialState,
   reducers: {
-    changeType: (state, action) => {
-      state.type = state.type === 'auto' ? 'pedestrian' : 'auto'
+    changeType: (state) => {
+      state.type = !state.type
     },
   },
 })
