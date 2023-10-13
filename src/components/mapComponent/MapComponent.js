@@ -1,25 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-
-import { load } from '@2gis/mapgl';
-import { Directions } from '@2gis/mapgl-directions';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 import MapWrapper from '../mapWrapper/mapWrapper';
 
+import { setCurPosition } from '../../redux/slices/currentPositionSlice';
+import { setBounds } from '../../redux/slices/boundsSlice';
+
 import './mapComponent.css';
-import { getDistanceBetweenPoints } from '../../services/services';
 
-const MapComponent = ({banks}) => {
-    const [map, setMap] = useState({}),
-        [curPos, setCurPos] = useState([]),
-        [mapglAPI, setMapGLApi] = useState({}),
-        [closestBank, setClosestBank] = useState({});
+const MapComponent = ({map, mapglAPI, banks}) => {
+    const dispatch = useDispatch();
 
-    const routeType = useSelector((state) => state.routes.type);
-
-    const directions = new Directions(map, {
-        directionsApiKey: 'fea7953b-72fa-4b6f-8d3e-bd5b5514a074',
-    });
+    useEffect(() => {
+        banks.forEach(bank => {
+            const marker = new mapglAPI.Marker(map, {
+                coordinates: [bank.long, bank.lat],
+            });
+        });
+    }, [banks]);
+    
 
     const success = (pos) => {
         const center = [pos.coords.longitude, pos.coords.latitude];
@@ -27,8 +26,11 @@ const MapComponent = ({banks}) => {
             coordinates: [pos.coords.longitude, pos.coords.latitude],
         });
 
-        setCurPos(center);
+        dispatch(setCurPosition((center)));
         map.setCenter(center);
+
+        console.log(map.getBounds())
+        dispatch(setBounds([map.getBounds().northEast, map.getBounds().southWest]));
 
     }
 
@@ -43,65 +45,6 @@ const MapComponent = ({banks}) => {
             navigator.geolocation.getCurrentPosition(success, error);
         }
     }
-
-    useEffect(() => {
-
-        if(curPos.length === 0) return;
-
-        if(!closestBank.long || !closestBank.lat) return;
-
-        directions.clear();
-        if(routeType) {
-            directions.carRoute({
-                points: [
-                    curPos,
-                    [closestBank.long, closestBank.lat]
-                ],
-            });
-        } else {
-            directions.pedestrianRoute({
-                points: [
-                    curPos,
-                    [closestBank.long, closestBank.lat]
-                ],
-            });
-        }
-    }, [routeType]);
-
-    useEffect(() => {
-        let map;
-
-        load().then((mapglAPI) => {
-            map = new mapglAPI.Map('map-container', {
-                center: [37.622318, 55.754989],
-                zoom: 13,
-                key: 'fea7953b-72fa-4b6f-8d3e-bd5b5514a074',
-            });
-
-            setMap(map);
-            setMapGLApi(mapglAPI);
-        });
-
-        return () => map && map.destroy();
-    }, []);
-
-    useEffect(() => {
-        const distance = 100000;
-
-        banks.forEach(bank => {
-            if(getDistanceBetweenPoints([bank.long, bank.lat], curPos) < distance) {
-                setClosestBank(bank);
-            }
-
-            if(curPos.length) return 
-
-            const marker = new mapglAPI.Marker(map, {
-                coordinates: [bank.long, bank.lat],
-            });
-
-        });
-        console.log(closestBank)
-    }, [banks, curPos]);
 
     return (
         <div style={{ width: '100%', height: '100%' }}>
