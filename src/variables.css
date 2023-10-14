@@ -1,9 +1,30 @@
 :root {
     --main-color-blue: #0D69F2;
     --color-grey: #F1F2F4;
+    --color-grey2: #6B7683;
+    --color-black: #2F3441;
+
     --main-font-size: 15px; 
+    --border-radius: 8px;
 }
 
 .btn {
+    display: block;
+    text-align: center;
+    padding: 12px;
+    width: 100%;
     background: var(--main-color-blue);
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: var(--main-font-size);
+    color: #fff;
+}
+
+.btn_grey {
+    background: var(--color-grey);
+    color: var(--color-black);
+}
+
+.btn_small {
+    width: max-content;
 }
