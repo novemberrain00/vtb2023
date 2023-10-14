@@ -17,6 +17,16 @@ const getData = async (url) => {
     return json;
 }
 
+const postData = async (url, body) => {
+    const response = await fetch(`http://51.250.111.230/api/v1${url}`, {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(body)
+    });
+};
+
 const getDistanceBetweenPoints = (coordsArr1, coordsArr2) => {
     const [lat1, lon1] = coordsArr1,
         [lat2, lon2] = coordsArr2;
@@ -35,4 +45,4 @@ const getDistanceBetweenPoints = (coordsArr1, coordsArr2) => {
 
 }
 
-export { getData, getDistanceBetweenPoints };
+export { getData, postData, getDistanceBetweenPoints };

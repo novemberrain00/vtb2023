@@ -1,0 +1,30 @@
+@import url('../../variables.css');
+
+.filter {
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-title-main {
+    display: flex;
+    justify-content: space-between;
+}
+
+.filter-title {
+    color: var(--color-black);
+    font-size: var(--main-font-size);
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    font-size: var(--main-font-size);
+}
+
+.filter-item {
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    margin-bottom: 14px;
+    font-size: var(--main-font-size);
+}
