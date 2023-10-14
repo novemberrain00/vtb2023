@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { load } from '@2gis/mapgl';
 
@@ -14,13 +14,19 @@ const  App = () => {
   const [map, setMap] = useState({}),
     [banks, setBanks] = useState([]),
     [mapglAPI, setMapGLApi] = useState({});
+  
+  const curPos = useSelector(state => state.curPosition.coords);
 
   useEffect(() => {
-    (async () => {
-      await getData('/branchList')
-        .then(res => setBanks((res.branchs)));
-    })();
+    if(curPos.length) {
+      (async () => {
+        await getData('/branchList')
+          .then(res => setBanks((res.branchs)));
+      })();
+    }
+  }, [curPos]);
 
+  useEffect(() => {
       let map;
 
       load().then((mapglAPI) => {

@@ -1,0 +1,9 @@
+:root {
+    --main-color-blue: #0D69F2;
+    --color-grey: #F1F2F4;
+    --main-font-size: 15px; 
+}
+
+.btn {
+    background: var(--main-color-blue);
+}
