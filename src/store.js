@@ -5,6 +5,7 @@ import bankFiltersSlice from './redux/slices/bankFiltersSlice';
 import banksSlice from './redux/slices/banksSlice';
 import currentPositionSlice from './redux/slices/currentPositionSlice';
 import boundsSlice from './redux/slices/boundsSlice';
+import selectedBankSlice from './redux/slices/selectedBankSlice';
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
     bankFilters: bankFiltersSlice,
     banks: banksSlice,
     curPosition: currentPositionSlice,
-    bounds: boundsSlice
+    bounds: boundsSlice,
+    selectedBank: selectedBankSlice
   },
 });

@@ -25,6 +25,8 @@ const postData = async (url, body) => {
         },
         body: JSON.stringify(body)
     });
+
+    return response.json();
 };
 
 const getDistanceBetweenPoints = (coordsArr1, coordsArr2) => {
@@ -45,4 +47,22 @@ const getDistanceBetweenPoints = (coordsArr1, coordsArr2) => {
 
 }
 
-export { getData, postData, getDistanceBetweenPoints };
+const coordsToAddress = async (coords) => {
+    const response = await fetch(`https://catalog.api.2gis.com/3.0/items/geocode?lat=${coords[1]}&lon=${coords[0]}&fields=items.point&key=0699139b-3ba7-4d48-8b59-e2d3babcc068`, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+
+    let json;
+
+    if (response.ok) { 
+        json = await response.json();
+    } else {
+        console.log("Ошибка HTTP: " + response.status);
+    }
+
+    return json;
+}
+
+export { getData, postData, getDistanceBetweenPoints, coordsToAddress};

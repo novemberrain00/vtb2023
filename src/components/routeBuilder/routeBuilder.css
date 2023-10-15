@@ -1,0 +1,65 @@
+@import url('../../variables.css');
+
+.route-builder {
+    max-width: 400px;
+    background: #fff;
+    border-radius: 20px;
+    padding: 40px;
+    height: max-content;;
+}
+
+.route-point {
+    padding: 6px 16px;
+    margin-bottom: 3px;
+    border-radius: var(--border-radius);
+    color: var(--color-grey2);
+    font-size: 16px;
+    background: #F1F2F4;
+}
+
+.route-switch {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 40px;
+}
+
+.route-type {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.route-type:hover {
+    cursor: pointer;
+}
+
+.route-type_active {
+    color: var(--main-color-blue);
+    background: var(--color-grey);
+}
+
+.route-type svg {
+    margin-right: 10px;
+}
+
+.points-container {
+    display: flex;
+}
+
+.points {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-right: 20px;
+}
+
+.points-icon-wrapper:first-child::after {
+    display: block;
+    content: '';
+    height: 20px;
+    width: 2px;
+    margin: 0 auto;
+    background: var(--color-grey);
+}

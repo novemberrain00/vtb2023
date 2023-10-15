@@ -1,0 +1,53 @@
+.bank-full {
+    max-width: 339px;
+    height: max-content;
+    border-radius: 20px;
+    background: #fff;
+    padding: 34px 40px;
+}
+
+.bank-header {
+    display: flex;
+    border-bottom: 1px solid #DCE0EB;
+    padding-bottom: 12px;
+}
+
+.bank-house-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.bank-name {
+    font-size: 18px;
+    color: var(--color-black);
+    font-weight: 500;
+}
+
+.bank-address {
+    color: #6B7683;
+    font-size: 16px;
+    font-style: normal;
+}
+
+.bank-schedule {
+    margin-top: 12px;
+    margin-bottom: 24px;
+}
+
+.bank-schedule-item {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    margin-bottom: 8px;
+    color: var(--color-grey2);
+}
+
+.bank-block-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.bank-block-icon {
+    margin-right: 16px;
+}

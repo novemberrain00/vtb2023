@@ -6,7 +6,7 @@
     background: var(--color-grey);
     border: none;
     border-radius: var(--border-radius);
-    padding: 16px 16px;
+    padding: 10px 16px;
     color: #ACB6C3;
     font-size: 16px;
     margin: 20px 0;
@@ -14,4 +14,25 @@
 
 .address:focus {
     outline: none;
+}
+
+.input-wrapper {
+    display: flex;
+    align-items: center;
+    height: 40px;
+}
+
+.input-cleaner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #F1F2F4;
+    height: 40px;
+    width: 40px;
+    margin-left: 20px;
+    border-radius: 8px;
+}
+
+.input-cleaner:hover {
+    cursor: pointer;
 }

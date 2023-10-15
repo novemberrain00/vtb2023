@@ -1,19 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  type: false  //true - for person, false - for car
+  isSwitchOpened: false  
 }
 
 export const routeTypeSlice = createSlice({
   name: 'routes',
   initialState,
   reducers: {
-    changeType: (state) => {
-      state.type = !state.type
+    openSwitch: (state) => {
+      state.isSwitchOpened = !state.isSwitchOpened
     },
   },
 })
 
-export const { changeType } = routeTypeSlice.actions;
+export const { openSwitch } = routeTypeSlice.actions;
 
 export default routeTypeSlice.reducer;

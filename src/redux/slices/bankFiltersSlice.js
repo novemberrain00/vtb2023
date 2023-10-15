@@ -1,7 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  clientsType: []
+  filters: {
+    branchServices:{}
+  },
+  filtersToSend: {}
 }
 
 export const bankFiltersSlice = createSlice({
@@ -9,12 +12,16 @@ export const bankFiltersSlice = createSlice({
   initialState,
   reducers: {
     setFilters: (state, action) => {
-      state = {...action.payload}
-      console.log(state)
+      const services = Object.keys(action.payload).filter(key => !'branchServiceshasRampholidayWorkinghasPrime'.includes(key));
+      state.filters = action.payload;
+      state.filters.branchServices = services;
+    },
+    sendFilters: (state, action) => {
+      state.filtersToSend = action.payload;
     },
   },
 })
 
-export const { setFilters } = bankFiltersSlice.actions;
+export const { setFilters, sendFilters } = bankFiltersSlice.actions;
 
 export default bankFiltersSlice.reducer;

@@ -1,0 +1,11 @@
+.filters-btn {
+    margin-top: 30px;
+}
+
+.filters-drop:hover {
+    cursor: pointer;
+}
+
+.cross-icon {
+    margin-right: 10px;
+}
