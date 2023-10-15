@@ -1,0 +1,47 @@
+@import url('../../variables.css');
+
+.bank-card {
+    padding: 20px 0;
+}
+
+/* .bank-card:hover {
+    background: rgba(204, 238, 255, 0.30);
+    cursor: pointer;
+} */
+
+.bank-card-address {
+    max-width: 152px;
+    color: var(--color-black);
+    font-style: normal;
+    font-size: 16px;
+    font-weight: 500;
+    margin-left: 20px;
+}
+
+.bank-card-address:hover {
+    color: var(--main-color-blue);
+    cursor: pointer;
+}
+
+.bank-card-top {
+    display: flex;
+}
+
+.bank-card-icon {
+    width: 40px;
+}
+
+.bank-card-distance {
+    margin-left: auto;
+    color: var(--main-color-blue)
+}
+
+.bank-card-data {
+    margin-top: 12px;
+    padding-left: 60px;
+}
+
+.bank-card-item {
+    font-size: var(--color-black);
+    font-size: var(--main-font-size);
+}

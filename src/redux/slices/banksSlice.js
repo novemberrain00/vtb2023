@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  banks: []
+  banks: [],
+  atm: []
 }
 
 export const banksSlice = createSlice({
@@ -9,11 +10,14 @@ export const banksSlice = createSlice({
   initialState,
   reducers: {
     setBanks: (state, action) => {
-      state = {...action.payload}
+      state.banks = {...action.payload}
+    },
+    setAtm: (state, action) => {
+      state.atm = {...action.payload}
     },
   },
 })
 
-export const { setBanks } = banksSlice.actions;
+export const { setBanks, setAtm } = banksSlice.actions;
 
 export default banksSlice.reducer;

@@ -1,15 +1,37 @@
 @import url('../../variables.css');
 
-.sidebar {
+.sidebar::-webkit-scrollbar {
+    width: 3px;               /* ширина всей полосы прокрутки */
+    min-height: 80%;
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background: none;        /* цвет зоны отслеживания */
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background-color: #ACB6C3;    /* цвет бегунка */
+    border-radius: 15px;       /* округлось бегунка */
+    border: none;  /* отступ вокруг бегунка */
+}
+
+
+
+.sidebar-wrapper {
+    display: flex;
     position: absolute;
     top: 30px;
     left: 30px;
     bottom: 30px;
+    z-index: 2;
+}
+
+.sidebar {
+    height: 100%;
     width: 400px;
     border-radius: 20px;
     background-color: #fff;
     overflow: auto;
-    z-index: 2;
 }
 
 .sidebar-main {

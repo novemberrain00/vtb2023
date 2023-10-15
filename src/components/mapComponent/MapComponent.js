@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import MapWrapper from '../mapWrapper/mapWrapper';
@@ -6,16 +6,27 @@ import MapWrapper from '../mapWrapper/mapWrapper';
 import { setCurPosition } from '../../redux/slices/currentPositionSlice';
 import { setBounds } from '../../redux/slices/boundsSlice';
 
+import BankIcon from '../../assets/icons/bank.svg';
+import UserIcon from '../../assets/icons/location.svg';
+import GeoIcon from '../../assets/icons/geo.svg';
 import './mapComponent.css';
 
 const MapComponent = ({map, mapglAPI, banks}) => {
     const dispatch = useDispatch();
+    const [markers, setMarkers] = useState([])
 
     useEffect(() => {
+        markers.forEach(marker => {
+            marker.hide(map);
+        });
+
         banks.forEach(bank => {
             const marker = new mapglAPI.Marker(map, {
                 coordinates: [bank.long, bank.lat],
+                icon: BankIcon
             });
+
+            setMarkers(prev => [...prev, marker])
         });
     }, [banks]);
     
@@ -24,14 +35,16 @@ const MapComponent = ({map, mapglAPI, banks}) => {
         const center = [pos.coords.longitude, pos.coords.latitude];
         const marker = new mapglAPI.Marker(map, {
             coordinates: [pos.coords.longitude, pos.coords.latitude],
+            icon: UserIcon
         });
 
-        dispatch(setCurPosition((center)));
+        setTimeout(() => {
+            dispatch(setBounds([map.getBounds().northEast, map.getBounds().southWest]));
+            dispatch(setCurPosition((center)));
+        }, 500);
+
+        
         map.setCenter(center);
-
-        console.log(map.getBounds())
-        dispatch(setBounds([map.getBounds().northEast, map.getBounds().southWest]));
-
     }
 
     const error = () => {
@@ -48,7 +61,9 @@ const MapComponent = ({map, mapglAPI, banks}) => {
 
     return (
         <div style={{ width: '100%', height: '100%' }}>
-            <button className="geo-button" onClick={()=> geoFindMe()}>Найти местоположение</button>
+            <button className="geo-button" onClick={()=> geoFindMe()}>
+                <img src={GeoIcon} className='geo-button-icon'/>
+            </button>
             <MapWrapper/>
         </div>
     );

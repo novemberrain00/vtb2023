@@ -20,6 +20,10 @@
     color: #fff;
 }
 
+.btn:hover {
+    cursor: pointer;
+}
+
 .btn_grey {
     background: var(--color-grey);
     color: var(--color-black);
